@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Game-UP Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Styles/Loginpage.css')}}">
+</head>
+<body>
+    <div class="header">
+        <div>GAME UP!</div>
+        <div>
+            <a href="eddy.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="peripherals.html">Peripherals</a>
+            <a href="login.html">Log In</a>
+        </div>
+    </div>
+
+    <div class="login-container">
+        <h2>Login to Game-UP Shop</h2>
+        <form action="eddy.html" method="POST">
+            <input type="text" placeholder="Username" name="username" required>
+            <input type="password" placeholder="Password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+        <a href="register.html">Don't have an account? Register here</a>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Game-UP Shop. All rights reserved.</p>
+            <div class="office">
+                <h3>Main Office</h3>
+                <p>123 Game Street, Tech City, USA</p>
+                <p>Phone: +1 123-456-7890</p>
+                <p>Email: support@gameupshop.com</p>
+            </div>
+            <div class="office">
+                <h3>Branch Office</h3>
+                <p>456 Gamer Lane, Pixel Town, USA</p>
+                <p>Phone: +1 987-654-3210</p>
+                <p>Email: branch@gameupshop.com</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
