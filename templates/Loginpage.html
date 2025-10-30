@@ -3,33 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Game-UP Shop</title>
+    <title>Login - UniTransport</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='Styles/Loginpage.css')}}">
 </head>
 <body>
     <div class="header">
-        <div>GAME UP!</div>
+        <div>UniTransport</div>
         <div>
-            <a href="eddy.html">Home</a>
-            <a href="about.html">About Us</a>
-            <a href="peripherals.html">Peripherals</a>
-            <a href="login.html">Log In</a>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('aboutpage') }}">About Us</a>
+            <a href="{{ url_for('transportations') }}">Transportations</a>
+            {% if 'username' in session %}
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('loginpage') }}">Log In</a>
+            {% endif %}
         </div>
     </div>
 
     <div class="login-container">
-        <h2>Login to Game-UP Shop</h2>
-        <form action="eddy.html" method="POST">
+        <h2>Login to UniTransport</h2>
+        <form action="{{ url_for('login') }}" method="POST">
             <input type="text" placeholder="Username" name="username" required>
             <input type="password" placeholder="Password" name="password" required>
             <button type="submit">Login</button>
         </form>
-        <a href="register.html">Don't have an account? Register here</a>
+        <a href="{{ url_for('registerpage') }}">Don't have an account? Register on homepage</a>
     </div>
-
     <div class="footer">
         <div class="footer-content">
-            <p>&copy; 2025 Game-UP Shop. All rights reserved.</p>
+            <p>&copy; 2025 UniTransport. All rights reserved.</p>
             <div class="office">
                 <h3>Main Office</h3>
                 <p>123 Game Street, Tech City, USA</p>
@@ -46,3 +50,4 @@
     </div>
 </body>
 </html>
+<script src="{{ url_for('static', filename='script.js')}}"></script>

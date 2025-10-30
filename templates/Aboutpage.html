@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - UniTransport</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Styles/Aboutpage.css')}}">
+</head>
+    <body>
+    <div class="header">
+        <div style="color: white; font-size: 24px;">UniTransport</div>
+        <div>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('transportations') }}">Transportations</a>
+            {% if 'username' in session %}
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('loginpage') }}">Log In</a>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="banner">
+        <h1>About Us</h1>
+        <p>We offer trusted brands of gaming essentials and peripherals.</p>
+    </div>
+    
+    <div class="about-section">
+        <h2>Who We Are</h2>
+        <p>Game-UP Shop is your one-stop destination for high-quality gaming peripherals and accessories. We are committed to providing the best products from trusted brands to enhance your gaming experience.</p>
+        <p>Our mission is to bring the latest and most reliable gaming gear to gamers worldwide, ensuring top-notch performance and satisfaction.</p>
+    </div>
+    
+    <div class="contact-section">
+        <h2>Contact Us</h2>
+        <p>Have questions or need assistance? Reach out to us!</p>
+        <p><b>Email:</b> support@gameupshop.com</p>
+        <p><b>Phone:</b> +1 123-456-7890</p>
+        <p><b>Address:</b> 123 Game Street, Tech City, USA</p>
+    </div>
+    
+    <div class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Game-UP Shop. All rights reserved.</p>
+            <div class="office">
+                <h3>Main Office</h3>
+                <p>123 Game Street, Tech City, USA</p>
+                <p>Phone: +1 123-456-7890</p>
+                <p>Email: support@gameupshop.com</p>
+            </div>
+            <div class="office">
+                <h3>Branch Office</h3>
+                <p>456 Gamer Lane, Pixel Town, USA</p>
+                <p>Phone: +1 987-654-3210</p>
+                <p>Email: branch@gameupshop.com</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="{{ url_for('static', filename='script.js')}}"></script>
+</html>

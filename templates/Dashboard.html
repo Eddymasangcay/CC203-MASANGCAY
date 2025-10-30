@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - UniTransport</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Styles/Dashboard.css')}}">
+</head>
+<body>
+    <div class="header">
+        <div>UniTransport</div>
+        <div>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('transportations') }}">Transportations</a>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </div>
+
+    <div class="dashboard">
+        <div class="welcome">
+            <h2>Welcome, {{ username }}!</h2>
+        </div>
+
+        <div class="post-form">
+            <h3>Change Password</h3>
+            <form action="{{ url_for('change_password') }}" method="POST">
+                <input type="password" name="current_password" placeholder="Current Password" required>
+                <input type="password" name="new_password" placeholder="New Password" required>
+                <button type="submit">Update Password</button>
+            </form>
+        </div>
+
+        <div class="post-form">
+            <h3>Your Bookings</h3>
+            <div class="posts">
+                {% for b in bookings %}
+                <div class="post">
+                    <div class="meta">
+                        <span>{{ b.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                        <span>Total: ${{ '%.2f' % b.total_price }}</span>
+                    </div>
+                    <div>
+                        {{ b.quantity }} × {{ b.transportation.name }} @ ${{ '%.2f' % b.transportation.price }} each
+                    </div>
+                    <div class="actions">
+                        <a href="{{ url_for('receipt', booking_id=b.id) }}">View receipt</a>
+                    </div>
+                </div>
+                {% else %}
+                <p>You have no bookings yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% if is_admin %}
+        <div class="post-form">
+            <h3>Admin: Add Transportation</h3>
+            <form action="{{ url_for('admin_add_transportation') }}" method="POST">
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="number" step="0.01" name="price" placeholder="Price" required>
+                <input type="url" name="image_url" placeholder="Image URL (optional)">
+                <button type="submit">Add</button>
+            </form>
+        </div>
+
+        <div class="post-form">
+            <h3>Admin: Manage Transportations</h3>
+            <div class="posts">
+                {% for t in transportations %}
+                <div class="post">
+                    <div class="meta">
+                        <span>{{ t.name }}</span>
+                        <span>${{ '%.2f' % t.price }}</span>
+                    </div>
+                    <form action="{{ url_for('admin_edit_transportation', transport_id=t.id) }}" method="POST" style="margin-bottom: 8px;">
+                        <input type="text" name="name" placeholder="Name" value="{{ t.name }}">
+                        <input type="number" step="0.01" name="price" placeholder="Price" value="{{ '%.2f' % t.price }}">
+                        <input type="url" name="image_url" placeholder="Image URL" value="{{ t.image_url }}">
+                        <button type="submit">Save</button>
+                    </form>
+                    <form action="{{ url_for('admin_delete_transportation', transport_id=t.id) }}" method="POST">
+                        <button type="submit" style="background: crimson;">Delete</button>
+                    </form>
+                </div>
+                {% else %}
+                <p>No transportations to manage.</p>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Game-UP Shop. All rights reserved.</p>
+            <div class="office">
+                <h3>Main Office</h3>
+                <p>123 Game Street, Tech City, USA</p>
+                <p>Phone: +1 123-456-7890</p>
+                <p>Email: support@gameupshop.com</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

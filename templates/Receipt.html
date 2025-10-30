@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt - UniTransport</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Styles/Dashboard.css')}}">
+</head>
+<body>
+    <div class="header">
+        <div>UniTransport</div>
+        <div>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('aboutpage') }}">About Us</a>
+            <a href="{{ url_for('transportations') }}">Transportations</a>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </div>
+
+    <div class="dashboard">
+        <div class="welcome">
+            <h2>Receipt</h2>
+            <p>Thank you for your booking.</p>
+        </div>
+        <div class="post">
+            <div class="meta">
+                <span>{{ booking.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                <span>Total: ${{ '%.2f' % booking.total_price }}</span>
+            </div>
+            <div>
+                {{ booking.quantity }} × {{ booking.transportation.name }} @ ${{ '%.2f' % booking.transportation.price }} each
+            </div>
+        </div>
+        <div style="margin-top: 16px;">
+            <a class="btn" href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Game-UP Shop. All rights reserved.</p>
+            <div class="office">
+                <h3>Main Office</h3>
+                <p>123 Game Street, Tech City, USA</p>
+                <p>Phone: +1 123-456-7890</p>
+                <p>Email: support@gameupshop.com</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

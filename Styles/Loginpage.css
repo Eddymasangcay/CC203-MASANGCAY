@@ -1,3 +1,4 @@
+/* Login page styles */
 body { 
     font-family: Arial, sans-serif; 
     margin: 0; 
@@ -74,6 +75,115 @@ body {
     font-size: 14px;
 }
 .login-container a:hover { 
+    text-decoration: underline; 
+}
+.footer {
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 20px;
+}
+.footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+.footer p {
+    margin: 10px 0;
+    font-size: 14px;
+}
+.office {
+    margin-top: 20px;
+}
+.office h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #fff;
+}
+.office p {
+    font-size: 14px;
+    margin: 5px 0;
+    color: #ccc;
+}
+
+/* Register page styles */  
+body { 
+    font-family: sans-serif; 
+    margin: 0; 
+    padding: 0;
+    background: linear-gradient(to bottom, rgb(124, 236, 129), rgb(200, 255, 200));
+    color: #333;
+}
+.header { 
+    background: black; 
+    padding: 15px 20px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.header div { 
+    font-size: 24px; 
+    font-weight: bold; 
+    color: white; 
+}
+.header a { 
+    color: white; 
+    text-decoration: none; 
+    margin: 0 15px; 
+    font-size: 16px; 
+    transition: color 0.3s;
+}
+.header a:hover { 
+    color: rgb(124, 236, 129); 
+}
+.register-container { 
+    background: white; 
+    padding: 30px; 
+    border-radius: 10px; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin: 40px auto;
+}
+.register-container h2 { 
+    margin-bottom: 20px; 
+    font-size: 24px; 
+    color: #333;
+}
+.register-container input { 
+    display: block; 
+    margin: 10px 0; 
+    padding: 10px; 
+    width: 100%; 
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+    font-size: 16px;
+}
+.register-container button { 
+    background: green; 
+    color: white; 
+    padding: 12px; 
+    border: none; 
+    cursor: pointer; 
+    width: 100%; 
+    border-radius: 5px; 
+    font-size: 16px; 
+    transition: background 0.3s;
+}
+.register-container button:hover { 
+    background: darkgreen; 
+}
+.register-container a { 
+    display: block; 
+    margin-top: 15px; 
+    color: green; 
+    text-decoration: none; 
+    font-size: 14px;
+}
+.register-container a:hover { 
     text-decoration: underline; 
 }
 .footer {

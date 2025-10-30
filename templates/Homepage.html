@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniTransport</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Styles/Homepage.css')}}">
+</head>
+<body>
+    <div class="header">
+        <div>UniTransport</div>
+        <div>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('aboutpage') }}">About Us</a>
+            <a href="{{ url_for('transportations') }}">Transportations</a>
+            <a href="{{ url_for('loginpage') }}">Log In</a>
+        </div>
+    </div>
+    
+    <div class="banner">
+        <h1>Welcome to UniTransport</h1>
+        <a href="{{ url_for('transportations') }}" class="btn">Browse Transportations</a>
+    </div>
+
+    {% if error %}
+    <div style="max-width:800px;margin:20px auto;color:#b00020;background:#ffe6e6;padding:12px 16px;border-radius:8px;">
+        {{ error }}
+    </div>
+    {% endif %}
+
+   
+    <div class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Game-UP Shop. All rights reserved.</p>
+            <div class="office">
+                <h3>Main Office</h3>
+                <p>123 Game Street, Tech City, USA</p>
+                <p>Phone: +1 123-456-7890</p>
+                <p>Email: support@gameupshop.com</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="{{ url_for('static', filename='script.js')}}"></script>    

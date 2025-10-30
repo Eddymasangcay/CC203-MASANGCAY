@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transportation - UniTransport</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Styles/Transportation.css')}}">
+</head>
+<body>
+    <div class="header">
+        <div>UniTransport</div>
+        <div>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('aboutpage') }}">About Us</a>
+            <a href="{{ url_for('transportations') }}">Transportations</a>
+            {% if 'username' in session %}
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+            <a href="{{ url_for('loginpage') }}">Log In</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="banner">
+        <h1>Available Transportations</h1>
+        <p>Select the best option and book instantly.</p>
+    </div>
+
+    <h2 class="section-title">Choose your ride</h2>
+    <div class="cards">
+        {% for t in transportations %}
+        <div class="card">
+            {% if t.image_url %}
+                <img src="{{ t.image_url }}" alt="{{ t.name }}">
+            {% endif %}
+            <h3>{{ t.name }}</h3>
+            <p><b>Price:</b> ${{ '%.2f' % t.price }}</p>
+            {% if 'username' in session %}
+            <form action="{{ url_for('book_transportation', transportation_id=t.id) }}" method="POST">
+                <input type="number" name="quantity" value="1" min="1" style="width: 70px; padding: 6px;">
+                <button class="btn" type="submit">Book</button>
+            </form>
+            {% else %}
+            <p>Please log in to book.</p>
+            {% endif %}
+        </div>
+        {% else %}
+        <p>No transportations available yet.</p>
+        {% endfor %}
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Game-UP Shop. All rights reserved.</p>
+            <div class="office">
+                <h3>Main Office</h3>
+                <p>123 Game Street, Tech City, USA</p>
+                <p>Phone: +1 123-456-7890</p>
+                <p>Email: support@gameupshop.com</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
