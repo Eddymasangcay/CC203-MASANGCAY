@@ -11,8 +11,8 @@
         <div>UniTransport</div>
         <div>
             <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('aboutpage') }}">About Us</a>
-            <a href="{{ url_for('transportations') }}">Transportations</a>
+            <a href="{{ url_for('aboutpage') }}">About</a>
+            <a href="{{ url_for('transportations') }}">Transportation</a>
             <a href="{{ url_for('dashboard') }}">Dashboard</a>
             <a href="{{ url_for('logout') }}">Logout</a>
         </div>
@@ -20,31 +20,61 @@
 
     <div class="dashboard">
         <div class="welcome">
-            <h2>Receipt</h2>
-            <p>Thank you for your booking.</p>
+            <h2>Payment Receipt</h2>
+            <p>Thank you for your booking! Your payment has been confirmed.</p>
         </div>
-        <div class="post">
-            <div class="meta">
-                <span>{{ booking.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
-                <span>Total: ${{ '%.2f' % booking.total_price }}</span>
-            </div>
-            <div>
-                {{ booking.quantity }} × {{ booking.transportation.name }} @ ${{ '%.2f' % booking.transportation.price }} each
+
+        <div class="post-form">
+            <h3>Customer Information</h3>
+            <div style="padding: 15px;">
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Booking ID:</strong> #{{ booking.id }}</p>
+                <p><strong>Booking Date:</strong> {{ booking.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                <p><strong>Payment Status:</strong> 
+                    <span style="color: #4CAF50; font-weight: bold;">
+                        {% if booking.payment_status == 'paid' %}
+                            ✓ Paid
+                        {% else %}
+                            {{ booking.payment_status|title }}
+                        {% endif %}
+                    </span>
+                </p>
             </div>
         </div>
-        <div style="margin-top: 16px;">
-            <a class="btn" href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+
+        <div class="post-form">
+            <h3>Booking Details</h3>
+            <div class="post">
+                <div class="meta">
+                    <span><strong>Transportation:</strong> {{ booking.transportation.name }}</span>
+                    <span><strong>Price per unit:</strong> ${{ '%.2f' % booking.transportation.price }}</span>
+                </div>
+                <div style="margin: 10px 0;">
+                    <p><strong>Quantity:</strong> {{ booking.quantity }}</p>
+                    <p><strong>Subtotal:</strong> ${{ '%.2f' % (booking.transportation.price * booking.quantity) }}</p>
+                </div>
+                <div style="border-top: 2px solid #333; padding-top: 10px; margin-top: 10px;">
+                    <p style="font-size: 20px; font-weight: bold; color: #4CAF50;">
+                        <strong>Total Paid:</strong> ${{ '%.2f' % booking.total_price }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px; text-align: center;">
+            <a class="btn" href="{{ url_for('dashboard') }}" style="background: #4CAF50; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">Back to Dashboard</a>
+            <a href="{{ url_for('transportations') }}" style="display: inline-block; margin-left: 10px; padding: 12px 24px; color: #666; text-decoration: none;">Book Another</a>
         </div>
     </div>
 
     <div class="footer">
         <div class="footer-content">
-            <p>&copy; 2025 Game-UP Shop. All rights reserved.</p>
+            <p>&copy; 2025 UniTransport. All rights reserved.</p>
             <div class="office">
                 <h3>Main Office</h3>
-                <p>123 Game Street, Tech City, USA</p>
+                <p>123 Transport Avenue, City Center, USA</p>
                 <p>Phone: +1 123-456-7890</p>
-                <p>Email: support@gameupshop.com</p>
+                <p>Email: support@unitransport.com</p>
             </div>
         </div>
     </div>

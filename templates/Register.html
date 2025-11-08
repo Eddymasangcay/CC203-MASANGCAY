@@ -11,14 +11,20 @@
         <div>UniTransport</div>
         <div>
             <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('aboutpage') }}">About Us</a>
-            <a href="{{ url_for('transportations') }}">Transportations</a>
-            <a href="{{ url_for('loginpage') }}">Log In</a>
+            <a href="{{ url_for('aboutpage') }}">About</a>
+            <a href="{{ url_for('transportations') }}">Transportation</a>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('loginpage') }}">Login</a>
         </div>
     </div>
 
     <div class="register-container">
         <h2>Create an Account</h2>
+        {% if error %}
+        <div style="color: red; margin-bottom: 15px; padding: 10px; background-color: #ffe6e6; border-radius: 5px;">
+            {{ error }}
+        </div>
+        {% endif %}
         <form action="{{ url_for('register') }}" method="POST">
             <input type="text" placeholder="Full Name" name="fullname" required>
             <input type="email" placeholder="Email Address" name="email" required>
@@ -35,9 +41,9 @@
             <p>&copy; 2025 UniTransport. All rights reserved.</p>
             <div class="office">
                 <h3>Main Office</h3>
-                <p>123 Game Street, Tech City, USA</p>
+                <p>123 Transport Avenue, City Center, USA</p>
                 <p>Phone: +1 123-456-7890</p>
-                <p>Email: support@gameupshop.com</p>
+                <p>Email: support@unitransport.com</p>
             </div>
         </div>
     </div>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - UniTransport</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Styles/Dashboard.css')}}">
+</head>
+<body>
+    <div class="header">
+        <div>UniTransport</div>
+        <div>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('aboutpage') }}">About</a>
+            <a href="{{ url_for('transportations') }}">Transportation</a>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </div>
+
+    <div class="dashboard">
+        <div class="welcome">
+            <h2>Payment Confirmation</h2>
+            <p>Please review your booking details and complete payment.</p>
+        </div>
+
+        <div class="post-form">
+            <h3>Booking Summary</h3>
+            <div class="post">
+                <div class="meta">
+                    <span><strong>Transportation:</strong> {{ transport.name }}</span>
+                    <span><strong>Price per unit:</strong> ${{ '%.2f' % transport.price }}</span>
+                </div>
+                <div style="margin: 10px 0;">
+                    <p><strong>Quantity:</strong> {{ quantity }}</p>
+                    <p><strong>Total Amount:</strong> ${{ '%.2f' % total_price }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="post-form">
+            <h3>Customer Information</h3>
+            <div style="padding: 15px;">
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Account Type:</strong> 
+                    {% if user.is_admin %}
+                        Admin
+                    {% elif user.role == 'staff' %}
+                        Staff
+                    {% else %}
+                        User
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <div class="post-form">
+            <h3>Payment Method</h3>
+            <form action="{{ url_for('process_payment') }}" method="POST">
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold;">Select Payment Method:</label>
+                    <select name="payment_method" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
+                        <option value="">-- Select Payment Method --</option>
+                        <option value="credit_card">Credit Card</option>
+                        <option value="debit_card">Debit Card</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="cash">Cash on Delivery</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold;">Card Number (if applicable):</label>
+                    <input type="text" name="card_number" placeholder="1234 5678 9012 3456" maxlength="19" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
+                </div>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <div style="flex: 1;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: bold;">Expiry Date:</label>
+                        <input type="text" name="expiry" placeholder="MM/YY" maxlength="5" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: bold;">CVV:</label>
+                        <input type="text" name="cvv" placeholder="123" maxlength="4" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
+                    </div>
+                </div>
+                <div style="background: #fff3cd; padding: 15px; border-radius: 6px; margin-bottom: 15px; border: 1px solid #ffc107;">
+                    <p style="margin: 0; color: #856404;"><strong>Total to Pay:</strong> ${{ '%.2f' % total_price }}</p>
+                </div>
+                <button type="submit" style="background: #4CAF50; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; width: 100%;">Confirm Payment</button>
+                <a href="{{ url_for('transportations') }}" style="display: block; text-align: center; margin-top: 10px; color: #666;">Cancel</a>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 UniTransport. All rights reserved.</p>
+            <div class="office">
+                <h3>Main Office</h3>
+                <p>123 Transport Avenue, City Center, USA</p>
+                <p>Phone: +1 123-456-7890</p>
+                <p>Email: support@unitransport.com</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

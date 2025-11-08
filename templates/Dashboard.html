@@ -11,7 +11,8 @@
         <div>UniTransport</div>
         <div>
             <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('transportations') }}">Transportations</a>
+            <a href="{{ url_for('aboutpage') }}">About</a>
+            <a href="{{ url_for('transportations') }}">Transportation</a>
             <a href="{{ url_for('dashboard') }}">Dashboard</a>
             <a href="{{ url_for('logout') }}">Logout</a>
         </div>
@@ -23,11 +24,17 @@
         </div>
 
         <div class="post-form">
-            <h3>Change Password</h3>
-            <form action="{{ url_for('change_password') }}" method="POST">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="margin: 0;">Account Settings</h3>
+                <button type="button" id="togglePasswordForm" class="toggle-btn" onclick="togglePasswordForm()">
+                    Change Password
+                </button>
+            </div>
+            <form id="passwordForm" action="{{ url_for('change_password') }}" method="POST" style="display: none;">
                 <input type="password" name="current_password" placeholder="Current Password" required>
                 <input type="password" name="new_password" placeholder="New Password" required>
                 <button type="submit">Update Password</button>
+                <button type="button" onclick="togglePasswordForm()" style="background: #666; margin-left: 10px;">Cancel</button>
             </form>
         </div>
 
@@ -53,39 +60,86 @@
             </div>
         </div>
 
-        {% if is_admin %}
-        <div class="post-form">
-            <h3>Admin: Add Transportation</h3>
-            <form action="{{ url_for('admin_add_transportation') }}" method="POST">
-                <input type="text" name="name" placeholder="Name" required>
-                <input type="number" step="0.01" name="price" placeholder="Price" required>
-                <input type="url" name="image_url" placeholder="Image URL (optional)">
-                <button type="submit">Add</button>
-            </form>
-        </div>
-
-        <div class="post-form">
-            <h3>Admin: Manage Transportations</h3>
-            <div class="posts">
-                {% for t in transportations %}
-                <div class="post">
-                    <div class="meta">
-                        <span>{{ t.name }}</span>
-                        <span>${{ '%.2f' % t.price }}</span>
+        {% if is_admin or is_staff %}
+        <div class="post-form admin-panel">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="margin: 0; color: #d32f2f;">🔧 Admin Panel</h3>
+                <button type="button" id="toggleAdminPanel" class="toggle-btn" onclick="toggleAdminPanel()">
+                    Open Admin Panel
+                </button>
+            </div>
+            <div id="adminPanel" style="display: none;">
+                <!-- Manage Users Section -->
+                <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 2px solid #eee;">
+                    <h4 style="margin-top: 0; margin-bottom: 15px; color: #333;">Manage Users</h4>
+                    <div class="posts">
+                        {% for u in all_users %}
+                        <div class="post">
+                            <div class="meta">
+                                <span><strong>{{ u.username }}</strong></span>
+                                <span>Current Role: 
+                                    {% if u.is_admin %}
+                                        <span style="color: #d32f2f; font-weight: bold;">Admin</span>
+                                    {% elif u.role == 'staff' %}
+                                        <span style="color: #1976d2; font-weight: bold;">Staff</span>
+                                    {% else %}
+                                        <span style="color: #666;">User</span>
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <form action="{{ url_for('admin_update_user_role', user_id=u.id) }}" method="POST" style="margin-top: 10px;">
+                                <select name="role" style="padding: 8px; border-radius: 6px; border: 1px solid #ccc; margin-right: 8px;">
+                                    <option value="user" {% if u.role == 'user' and not u.is_admin %}selected{% endif %}>User</option>
+                                    <option value="staff" {% if u.role == 'staff' %}selected{% endif %}>Staff</option>
+                                    <option value="admin" {% if u.is_admin %}selected{% endif %}>Admin</option>
+                                </select>
+                                <button type="submit" style="background: #4a90e2;">Update Role</button>
+                            </form>
+                        </div>
+                        {% else %}
+                        <p>No users to manage.</p>
+                        {% endfor %}
                     </div>
-                    <form action="{{ url_for('admin_edit_transportation', transport_id=t.id) }}" method="POST" style="margin-bottom: 8px;">
-                        <input type="text" name="name" placeholder="Name" value="{{ t.name }}">
-                        <input type="number" step="0.01" name="price" placeholder="Price" value="{{ '%.2f' % t.price }}">
-                        <input type="url" name="image_url" placeholder="Image URL" value="{{ t.image_url }}">
-                        <button type="submit">Save</button>
-                    </form>
-                    <form action="{{ url_for('admin_delete_transportation', transport_id=t.id) }}" method="POST">
-                        <button type="submit" style="background: crimson;">Delete</button>
+                </div>
+
+                <!-- Add Transportation Section -->
+                <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 2px solid #eee;">
+                    <h4 style="margin-top: 0; margin-bottom: 15px; color: #333;">Add New Transportation</h4>
+                    <form action="{{ url_for('admin_add_transportation') }}" method="POST" enctype="multipart/form-data">
+                        <input type="text" name="name" placeholder="Name" required>
+                        <input type="number" step="0.01" name="price" placeholder="Price" required>
+                        <input type="file" name="image_file" accept="image/*" style="margin-bottom: 10px; padding: 8px; width: 100%; box-sizing: border-box;">
+                        <p style="font-size: 12px; color: #666; margin: 5px 0;">Or provide an image URL:</p>
+                        <input type="url" name="image_url" placeholder="Image URL (optional)">
+                        <button type="submit">Add Transportation</button>
                     </form>
                 </div>
-                {% else %}
-                <p>No transportations to manage.</p>
-                {% endfor %}
+
+                <!-- Manage Transportations Section -->
+                <div>
+                    <h4 style="margin-top: 0; margin-bottom: 15px; color: #333;">Manage Existing Transportations</h4>
+                    <div class="posts">
+                        {% for t in transportations %}
+                        <div class="post">
+                            <div class="meta">
+                                <span>{{ t.name }}</span>
+                                <span>${{ '%.2f' % t.price }}</span>
+                            </div>
+                            <form action="{{ url_for('admin_edit_transportation', transport_id=t.id) }}" method="POST" style="margin-bottom: 8px;">
+                                <input type="text" name="name" placeholder="Name" value="{{ t.name }}">
+                                <input type="number" step="0.01" name="price" placeholder="Price" value="{{ '%.2f' % t.price }}">
+                                <input type="url" name="image_url" placeholder="Image URL" value="{{ t.image_url }}">
+                                <button type="submit">Save</button>
+                            </form>
+                            <form action="{{ url_for('admin_delete_transportation', transport_id=t.id) }}" method="POST">
+                                <button type="submit" style="background: crimson;">Delete</button>
+                            </form>
+                        </div>
+                        {% else %}
+                        <p>No transportations to manage.</p>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
         {% endif %}
@@ -93,15 +147,43 @@
 
     <div class="footer">
         <div class="footer-content">
-            <p>&copy; 2025 Game-UP Shop. All rights reserved.</p>
+            <p>&copy; 2025 UniTransport. All rights reserved.</p>
             <div class="office">
                 <h3>Main Office</h3>
-                <p>123 Game Street, Tech City, USA</p>
+                <p>123 Transport Avenue, City Center, USA</p>
                 <p>Phone: +1 123-456-7890</p>
-                <p>Email: support@gameupshop.com</p>
+                <p>Email: support@unitransport.com</p>
             </div>
         </div>
     </div>
+
+    <script>
+        function togglePasswordForm() {
+            const form = document.getElementById('passwordForm');
+            const btn = document.getElementById('togglePasswordForm');
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+                btn.textContent = 'Hide Password Form';
+            } else {
+                form.style.display = 'none';
+                btn.textContent = 'Change Password';
+                // Clear form fields when hiding
+                form.reset();
+            }
+        }
+        
+        function toggleAdminPanel() {
+            const panel = document.getElementById('adminPanel');
+            const btn = document.getElementById('toggleAdminPanel');
+            if (panel.style.display === 'none') {
+                panel.style.display = 'block';
+                btn.textContent = 'Close Admin Panel';
+            } else {
+                panel.style.display = 'none';
+                btn.textContent = 'Open Admin Panel';
+            }
+        }
+    </script>
 </body>
 </html>
 

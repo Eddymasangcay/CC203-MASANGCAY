@@ -11,13 +11,14 @@
         <div>UniTransport</div>
         <div>
             <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('aboutpage') }}">About Us</a>
-            <a href="{{ url_for('transportations') }}">Transportations</a>
+            <a href="{{ url_for('aboutpage') }}">About</a>
+            <a href="{{ url_for('transportations') }}">Transportation</a>
             {% if 'username' in session %}
                 <a href="{{ url_for('dashboard') }}">Dashboard</a>
                 <a href="{{ url_for('logout') }}">Logout</a>
             {% else %}
-                <a href="{{ url_for('loginpage') }}">Log In</a>
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('loginpage') }}">Login</a>
             {% endif %}
         </div>
     </div>
@@ -36,15 +37,15 @@
             <p>&copy; 2025 UniTransport. All rights reserved.</p>
             <div class="office">
                 <h3>Main Office</h3>
-                <p>123 Game Street, Tech City, USA</p>
+                <p>123 Transport Avenue, City Center, USA</p>
                 <p>Phone: +1 123-456-7890</p>
-                <p>Email: support@gameupshop.com</p>
+                <p>Email: support@unitransport.com</p>
             </div>
             <div class="office">
                 <h3>Branch Office</h3>
-                <p>456 Gamer Lane, Pixel Town, USA</p>
+                <p>456 Transit Lane, Metro District, USA</p>
                 <p>Phone: +1 987-654-3210</p>
-                <p>Email: branch@gameupshop.com</p>
+                <p>Email: branch@unitransport.com</p>
             </div>
         </div>
     </div>

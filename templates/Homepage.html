@@ -11,32 +11,91 @@
         <div>UniTransport</div>
         <div>
             <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('aboutpage') }}">About Us</a>
-            <a href="{{ url_for('transportations') }}">Transportations</a>
-            <a href="{{ url_for('loginpage') }}">Log In</a>
+            <a href="{{ url_for('aboutpage') }}">About</a>
+            <a href="{{ url_for('transportations') }}">Transportation</a>
+            {% if 'username' in session %}
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('loginpage') }}">Login</a>
+            {% endif %}
         </div>
     </div>
     
     <div class="banner">
-        <h1>Welcome to UniTransportation</h1>
-        <a href="{{ url_for('transportations') }}" class="btn">Browse Transportations</a>
+        <h1>Present Your Transportation to Billions!</h1>
+        <a href="{{ url_for('transportations') }}" class="btn">Book Now</a>
     </div>
 
     {% if error %}
-    <div style="max-width:800px;margin:20px auto;color:#b00020;background:#ffe6e6;padding:12px 16px;border-radius:8px;">
+    <div class="error-message">
         {{ error }}
     </div>
     {% endif %}
 
-   
+    <!-- Featured Transportations Section -->
+    <h2>Featured Transportations</h2>
+    <div class="deals">
+        {% for t in featured_transports %}
+        <div class="deal-item">
+            {% if t.image_url %}
+                <img src="{{ t.image_url }}" alt="{{ t.name }}">
+            {% else %}
+                <div class="placeholder-image">🚗</div>
+            {% endif %}
+            <p><b>{{ t.name }}</b></p>
+            <p><b>Price: ${{ '%.2f' % t.price }}</b></p>
+            <a href="{{ url_for('transportations') }}" class="btn-small">View Details</a>
+        </div>
+        {% else %}
+        <div class="deal-item">
+            <div class="placeholder-image">🚗</div>
+            <p><b>Taxi Service</b></p>
+            <p><b>Price: $25.00</b></p>
+            <a href="{{ url_for('transportations') }}" class="btn-small">View Details</a>
+        </div>
+        <div class="deal-item">
+            <div class="placeholder-image">🚌</div>
+            <p><b>Bus Service</b></p>
+            <p><b>Price: $15.00</b></p>
+            <a href="{{ url_for('transportations') }}" class="btn-small">View Details</a>
+        </div>
+        <div class="deal-item">
+            <div class="placeholder-image">🚕</div>
+            <p><b>Ride Share</b></p>
+            <p><b>Price: $20.00</b></p>
+            <a href="{{ url_for('transportations') }}" class="btn-small">View Details</a>
+        </div>
+        <div class="deal-item">
+            <div class="placeholder-image">🚇</div>
+            <p><b>Train Service</b></p>
+            <p><b>Price: $30.00</b></p>
+            <a href="{{ url_for('transportations') }}" class="btn-small">View Details</a>
+        </div>
+        <div class="deal-item">
+            <div class="placeholder-image">✈️</div>
+            <p><b>Airport Shuttle</b></p>
+            <p><b>Price: $45.00</b></p>
+            <a href="{{ url_for('transportations') }}" class="btn-small">View Details</a>
+        </div>
+        {% endfor %}
+    </div>
+
     <div class="footer">
         <div class="footer-content">
-            <p>&copy; 2025 Game-UP Shop. All rights reserved.</p>
+            <p>&copy; 2025 UniTransport. All rights reserved.</p>
             <div class="office">
                 <h3>Main Office</h3>
-                <p>123 Game Street, Tech City, USA</p>
+                <p>123 Transport Avenue, City Center, USA</p>
                 <p>Phone: +1 123-456-7890</p>
-                <p>Email: support@gameupshop.com</p>
+                <p>Email: support@unitransport.com</p>
+            </div>
+            <div class="office">
+                <h3>Branch Office</h3>
+                <p>456 Transit Lane, Metro District, USA</p>
+                <p>Phone: +1 987-654-3210</p>
+                <p>Email: branch@unitransport.com</p>
             </div>
         </div>
     </div>

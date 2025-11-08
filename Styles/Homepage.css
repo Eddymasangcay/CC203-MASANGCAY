@@ -1,131 +1,379 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body { 
-    font-family: Arial, sans-serif; 
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
     margin: 0; 
     padding: 0;
-    background: linear-gradient(to bottom, rgb(124, 236, 129), rgb(200, 255, 200));
-    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    color: #1a1a1a;
+    min-height: 100vh;
 }
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 .header { 
-    background: black; 
-    padding: 15px 20px; 
+    background: rgba(15, 15, 15, 0.98);
+    padding: 18px 40px; 
     display: flex; 
     align-items: center; 
     justify-content: space-between; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 .header div { 
-    font-size: 24px; 
-    font-weight: bold; 
-    color: white; 
+    font-size: 28px; 
+    font-weight: 800; 
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
 }
+
 .header a { 
-    color: white; 
+    color: #ffffff !important; 
     text-decoration: none; 
-    margin: 0 15px; 
-    font-size: 16px; 
-    transition: color 0.3s;
+    margin: 0 12px; 
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 10px 16px;
+    letter-spacing: 0.3px;
+    text-shadow: none;
+    background: transparent;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
+.header a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.3s ease;
+}
+
 .header a:hover { 
-    color: rgb(124, 236, 129); 
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(102, 126, 234, 0.4), 0 4px 15px rgba(0, 0, 0, 0.2);
 }
+
+.header a:hover::after {
+    width: 100%;
+}
+
 .banner {
     position: relative;
     text-align: center;
-    padding: 60px 20px;
+    padding: 120px 20px;
     overflow: hidden;
-    height: 300px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+    color: white;
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
-.background-video {
+
+.banner::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
 }
+
 .banner h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
+    font-size: clamp(32px, 5vw, 64px);
+    margin-bottom: 30px;
     color: white;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    font-weight: 800;
+    letter-spacing: -1px;
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 0.8s ease;
 }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+    box-shadow: 0 12px 30px rgba(76, 175, 80, 0.5);
+    transform: translateY(-3px);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.error-message {
+    max-width: 800px;
+    margin: 30px auto;
+    color: #b00020;
+    background: rgba(255, 230, 230, 0.98);
+    padding: 16px 24px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(176, 0, 32, 0.2);
+    border: 1px solid rgba(176, 0, 32, 0.2);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
 .btn { 
-    background: green; 
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white; 
-    padding: 15px 30px; 
+    padding: 16px 36px; 
     text-decoration: none; 
     display: inline-block; 
-    margin-top: 10px; 
-    border-radius: 5px; 
-    font-size: 18px; 
-    transition: background 0.3s, transform 0.3s;
+    margin-top: 20px; 
+    border-radius: 50px; 
+    font-size: 17px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    position: relative;
+    z-index: 1;
+    border: none;
+    cursor: pointer;
 }
+
 .btn:hover { 
-    background: darkgreen; 
-    transform: scale(1.05);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
 }
+
 h2 { 
     text-align: center; 
-    margin: 40px 0; 
-    font-size: 32px; 
-    color: #333;
+    margin: 60px 0 40px; 
+    font-size: clamp(28px, 4vw, 42px);
+    color: #1a1a1a;
+    font-weight: 700;
+    letter-spacing: -0.5px;
 }
+
 .deals { 
-    display: flex; 
-    justify-content: center; 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 30px; 
-    padding: 20px; 
-    flex-wrap: wrap;
+    padding: 40px 20px; 
+    max-width: 1400px;
+    margin: 0 auto;
 }
+
 .deal-item { 
-    background: white; 
-    border-radius: 10px; 
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
-    width: 220px; 
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 20px; 
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12); 
+    width: 100%; 
     text-align: center; 
-    padding: 15px; 
-    transition: transform 0.3s, box-shadow 0.3s;
+    padding: 24px; 
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+    position: relative;
 }
+
+.deal-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.deal-item:hover::before {
+    transform: scaleX(1);
+}
+
 .deal-item:hover { 
-    transform: scale(1.05); 
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-8px) scale(1.02); 
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.25);
 }
+
 .deal-item img { 
-    border-radius: 10px; 
-    margin-bottom: 10px; 
+    border-radius: 16px; 
+    margin-bottom: 16px; 
     width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
 }
+
+.deal-item:hover img {
+    transform: scale(1.05);
+}
+
+.placeholder-image {
+    font-size: 80px;
+    text-align: center;
+    padding: 50px 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 16px;
+    margin-bottom: 16px;
+    transition: transform 0.4s ease;
+}
+
+.deal-item:hover .placeholder-image {
+    transform: scale(1.05);
+}
+
 .deal-item p {
-    margin: 10px 0;
+    margin: 12px 0;
     font-size: 16px;
+    color: #333;
+    font-weight: 500;
 }
+
+.deal-item p b {
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+.btn-small {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 10px 24px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 12px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.btn-small:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
 .footer {
-    background: black;
+    background: rgba(15, 15, 15, 0.98);
     color: white;
     text-align: center;
-    padding: 20px 0;
-    margin-top: 40px;
+    padding: 50px 0 30px;
+    margin-top: 80px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 .footer-content {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    text-align: left;
 }
+
 .footer p {
     margin: 10px 0;
     font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
 }
+
 .office {
-    margin-top: 20px;
+    margin-top: 0;
 }
+
 .office h3 {
-    font-size: 18px;
-    margin-bottom: 5px;
+    font-size: 20px;
+    margin-bottom: 15px;
     color: #fff;
+    font-weight: 600;
 }
+
 .office p {
     font-size: 14px;
-    margin: 5px 0;
-    color: #ccc;
+    margin: 8px 0;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .header div {
+        font-size: 24px;
+    }
+    
+    .header a {
+        margin: 0 10px;
+        font-size: 14px;
+    }
+    
+    .banner {
+        padding: 80px 20px;
+        min-height: 350px;
+    }
+    
+    .deals {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
 }

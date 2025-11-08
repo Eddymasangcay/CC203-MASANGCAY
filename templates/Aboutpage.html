@@ -8,52 +8,54 @@
 </head>
     <body>
     <div class="header">
-        <div style="color: white; font-size: 24px;">UniTransport</div>
+        <div>UniTransport</div>
         <div>
             <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('transportations') }}">Transportations</a>
+            <a href="{{ url_for('aboutpage') }}">About</a>
+            <a href="{{ url_for('transportations') }}">Transportation</a>
             {% if 'username' in session %}
                 <a href="{{ url_for('dashboard') }}">Dashboard</a>
                 <a href="{{ url_for('logout') }}">Logout</a>
             {% else %}
-                <a href="{{ url_for('loginpage') }}">Log In</a>
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('loginpage') }}">Login</a>
             {% endif %}
         </div>
     </div>
     
     <div class="banner">
         <h1>About Us</h1>
-        <p>We offer trusted brands of gaming essentials and peripherals.</p>
+        <p>Your trusted partner in modern transportation solutions.</p>
     </div>
     
     <div class="about-section">
         <h2>Who We Are</h2>
-        <p>Game-UP Shop is your one-stop destination for high-quality gaming peripherals and accessories. We are committed to providing the best products from trusted brands to enhance your gaming experience.</p>
-        <p>Our mission is to bring the latest and most reliable gaming gear to gamers worldwide, ensuring top-notch performance and satisfaction.</p>
+        <p>UniTransport is your premier destination for reliable and efficient transportation services. We are committed to providing seamless travel experiences with a focus on safety, comfort, and affordability.</p>
+        <p>Our mission is to connect people and places through innovative transportation solutions, ensuring that every journey is smooth, convenient, and memorable. With a diverse fleet and professional service, we make transportation accessible to everyone.</p>
     </div>
     
     <div class="contact-section">
         <h2>Contact Us</h2>
         <p>Have questions or need assistance? Reach out to us!</p>
-        <p><b>Email:</b> support@gameupshop.com</p>
+        <p><b>Email:</b> support@unitransport.com</p>
         <p><b>Phone:</b> +1 123-456-7890</p>
-        <p><b>Address:</b> 123 Game Street, Tech City, USA</p>
+        <p><b>Address:</b> 123 Transport Avenue, City Center, USA</p>
     </div>
     
     <div class="footer">
         <div class="footer-content">
-            <p>&copy; 2025 Game-UP Shop. All rights reserved.</p>
+            <p>&copy; 2025 UniTransport. All rights reserved.</p>
             <div class="office">
                 <h3>Main Office</h3>
-                <p>123 Game Street, Tech City, USA</p>
+                <p>123 Transport Avenue, City Center, USA</p>
                 <p>Phone: +1 123-456-7890</p>
-                <p>Email: support@gameupshop.com</p>
+                <p>Email: support@unitransport.com</p>
             </div>
             <div class="office">
                 <h3>Branch Office</h3>
-                <p>456 Gamer Lane, Pixel Town, USA</p>
+                <p>456 Transit Lane, Metro District, USA</p>
                 <p>Phone: +1 987-654-3210</p>
-                <p>Email: branch@gameupshop.com</p>
+                <p>Email: branch@unitransport.com</p>
             </div>
         </div>
     </div>
